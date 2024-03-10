@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContactUs</title>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a href="/">Shop</a></li>
+                <li class="main-header__item"><a class="active" href="/admin/add-product">Add Product</a></li>
+                <li class="main-header__item"><a href="/contactUs">ContactUs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="booking-form">
+        <h2>Book a Call</h2>
+        <p>Book a call slot and our representative will call you within 1hr of selected time.</p>
+        <form id="contactForm" action="/contactUs/submit" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="time">Time for Call:</label>
+            <input type="datetime-local" id="time" name="time" required>
+
+            <button type="submit">Get a Call</button>
+        </form>
+        <footer>
+        </footer>
+
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function (event) {
+                event.preventDefault(); 
+
+                const formData = new FormData(this);
+                fetch('/contactUs/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                          
+                            window.location.href = '/success';
+                        } else {
+                            console.log(err)
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        </script>
+</body>
+
+</html>
